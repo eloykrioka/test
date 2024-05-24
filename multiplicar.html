@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multiplication Tables Exercise</title>
+</head>
+<body>
+
+<h2>Multiplication Tables Exercise</h2>
+<label for="answer">Enter the answer:</label>
+<input type="text" id="answer">
+<button onclick="checkAnswer()">Submit</button>
+<p id="question"></p>
+<p id="result"></p>
+
+<script>
+let correctAnswers = 0;
+let incorrectAnswers = 0;
+
+function getRandomQuestion() {
+    // Obtener números aleatorios para las tablas de multiplicar del 3 al 9
+    const num1 = Math.floor(Math.random() * 3) + 6;
+    const num2 = Math.floor(Math.random() * 8) + 2;
+    return `${num1} x ${num2} ?`;
+}
+
+function checkAnswer() {
+    const answerInput = document.getElementById('answer');
+    const userAnswer = parseInt(answerInput.value);
+    const question = document.getElementById('question');
+    const result = document.getElementById('result');
+    
+    const questionText = question.innerText;
+    const nums = questionText.match(/\d+/g);
+    const correctAnswer = parseInt(nums[0]) * parseInt(nums[1]);
+    
+    if (userAnswer === correctAnswer) {
+        question.innerText = getRandomQuestion();
+        answerInput.value = '';
+        correctAnswers++;
+    } else {
+        alert('Incorrect answer. Try again!');
+        incorrectAnswers++;
+    }
+    updateResult();
+}
+
+function updateResult() {
+    const result = document.getElementById('result');
+    result.innerText = `Correct Answers: ${correctAnswers}, Incorrect Answers: ${incorrectAnswers}`;
+}
+
+// Mostrar la primera pregunta cuando se carga la página
+document.getElementById('question').innerText = getRandomQuestion();
+</script>
+
+</body>
+</html>
